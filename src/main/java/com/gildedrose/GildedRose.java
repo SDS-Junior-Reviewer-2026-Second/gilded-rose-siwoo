@@ -18,59 +18,31 @@ class GildedRose {
 
             Item item = items[i];
 
-            // 전설 아이템은 아무것도 변하지 않는다.
-            if (item.name.equals(SULFURAS)) {
-                continue;
-            }
-
             if (item.name.equals(AGED_BRIE)) {
-                UpdateQualityForAgedBrie(item);
+
+                AgedBrieItem agedBrieItem = new AgedBrieItem(item);
+                agedBrieItem.updateQuality(item);
+
             } else if (item.name.equals(BACKSTAGE_PASSES)) {
-                UpdateQualityForBackstagePasses(item);
+
+                BackstagePassesItem backstagePassesItem =
+                        new BackstagePassesItem(item);
+                backstagePassesItem.updateQuality(item);
+
+            } else if (item.name.equals(SULFURAS)) {
+
+                SulfurasItem sulfurasItem = new SulfurasItem(item);
+                sulfurasItem.updateQuality(item);
+
             } else {
-                UpdateQualityForNormalItem(item);
+
+                NormalItem normalItem = new NormalItem(item);
+                normalItem.updateQuality(item);
             }
 
-            item.sellIn--;
-        }
-    }
-
-    private static void UpdateQualityForNormalItem(Item item) {
-        int decrease = 1;
-
-        if (item.sellIn <= 0) {
-            decrease = 2;
-        }
-
-        item.quality = Math.max(0, item.quality - decrease);
-    }
-
-    private static void UpdateQualityForBackstagePasses(Item item) {
-        if (item.sellIn <= 0) {
-            item.quality = 0;
-
-        } else {
-            int increase = 1;
-
-            if (item.sellIn <= 10) {
-                increase = 2;
+            if (!item.name.equals(SULFURAS)) {
+                item.sellIn--;
             }
-
-            if (item.sellIn <= 5) {
-                increase = 3;
-            }
-
-            item.quality = Math.min(50, item.quality + increase);
         }
-    }
-
-    private static void UpdateQualityForAgedBrie(Item item) {
-        int increase = 1;
-
-        if (item.sellIn <= 0) {
-            increase = 2;
-        }
-
-        item.quality = Math.min(50, item.quality + increase);
     }
 }
