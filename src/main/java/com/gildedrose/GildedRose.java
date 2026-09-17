@@ -20,23 +20,30 @@ class GildedRose {
 
             if (item.name.equals(AGED_BRIE)) {
 
-                AgedBrieItem agedBrieItem = new AgedBrieItem(item);
+                GildedRoseItem agedBrieItem =
+                        new AgedBrieItem(item);
+
                 agedBrieItem.updateQuality(item);
 
             } else if (item.name.equals(BACKSTAGE_PASSES)) {
 
-                BackstagePassesItem backstagePassesItem =
+                GildedRoseItem backstagePassesItem =
                         new BackstagePassesItem(item);
+
                 backstagePassesItem.updateQuality(item);
 
             } else if (item.name.equals(SULFURAS)) {
 
-                SulfurasItem sulfurasItem = new SulfurasItem(item);
+                GildedRoseItem sulfurasItem =
+                        new SulfurasItem(item);
+
                 sulfurasItem.updateQuality(item);
 
             } else {
 
-                NormalItem normalItem = new NormalItem(item);
+                GildedRoseItem normalItem =
+                        new NormalItem(item);
+
                 normalItem.updateQuality(item);
             }
 

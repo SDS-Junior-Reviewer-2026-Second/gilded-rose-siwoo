@@ -1,13 +1,12 @@
 package com.gildedrose;
 
-public class NormalItem {
-
-    private Item item;
+public class NormalItem extends GildedRoseItem {
 
     public NormalItem(Item item) {
-        this.item = item;
+        super(item);
     }
 
+    @Override
     public void updateQuality(Item item) {
         int decrease = 1;
 

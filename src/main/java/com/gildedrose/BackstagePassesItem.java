@@ -1,13 +1,13 @@
 package com.gildedrose;
 
-public class BackstagePassesItem {
-
-    private Item item;
+// [71p 변경]
+public class BackstagePassesItem extends GildedRoseItem {
 
     public BackstagePassesItem(Item item) {
-        this.item = item;
+        super(item);
     }
 
+    @Override
     public void updateQuality(Item item) {
         if (item.sellIn <= 0) {
             item.quality = 0;

@@ -1,15 +1,13 @@
 package com.gildedrose;
 
-public class AgedBrieItem {
-
-    private Item item;
+public class AgedBrieItem extends GildedRoseItem {
 
     public AgedBrieItem(Item item) {
-        this.item = item;
+
+        super(item);
     }
 
-    // [67p 변경]
-    // updateQualityForAgedBrie() → updateQuality()
+    @Override
     public void updateQuality(Item item) {
         int increase = 1;
 
