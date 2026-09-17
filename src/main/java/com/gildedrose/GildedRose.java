@@ -14,42 +14,54 @@ class GildedRose {
     }
 
     public void updateQuality() {
+
         for (int i = 0; i < items.length; i++) {
 
             Item item = items[i];
 
-            if (item.name.equals(AGED_BRIE)) {
+            updateQuality(item);
 
-                GildedRoseItem agedBrieItem =
-                        new AgedBrieItem(item);
-
-                agedBrieItem.updateQuality(item);
-
-            } else if (item.name.equals(BACKSTAGE_PASSES)) {
-
-                GildedRoseItem backstagePassesItem =
-                        new BackstagePassesItem(item);
-
-                backstagePassesItem.updateQuality(item);
-
-            } else if (item.name.equals(SULFURAS)) {
-
-                GildedRoseItem sulfurasItem =
-                        new SulfurasItem(item);
-
-                sulfurasItem.updateQuality(item);
-
-            } else {
-
-                GildedRoseItem normalItem =
-                        new NormalItem(item);
-
-                normalItem.updateQuality(item);
-            }
-
-            if (!item.name.equals(SULFURAS)) {
-                item.sellIn--;
-            }
+            updateSellIn(item);
         }
+    }
+
+    private void updateQuality(Item item) {
+
+        GildedRoseItem gildedRoseItem = getGildedRoseItem(item);
+
+        gildedRoseItem.updateQuality(item);
+    }
+
+    private GildedRoseItem getGildedRoseItem(Item item) {
+
+        GildedRoseItem gildedRoseItem;
+
+        if (item.name.equals(AGED_BRIE)) {
+
+            gildedRoseItem = new AgedBrieItem(item);
+
+        } else if (item.name.equals(BACKSTAGE_PASSES)) {
+
+            gildedRoseItem = new BackstagePassesItem(item);
+
+        } else if (item.name.equals(SULFURAS)) {
+
+            gildedRoseItem = new SulfurasItem(item);
+
+        } else {
+
+            gildedRoseItem = new NormalItem(item);
+        }
+
+        return gildedRoseItem;
+    }
+
+    private void updateSellIn(Item item) {
+
+        if (item.name.equals(SULFURAS)) {
+            return;
+        }
+
+        item.sellIn--;
     }
 }
