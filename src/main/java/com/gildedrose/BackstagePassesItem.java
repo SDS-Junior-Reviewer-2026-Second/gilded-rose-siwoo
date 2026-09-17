@@ -1,6 +1,5 @@
 package com.gildedrose;
 
-// [71p 변경]
 public class BackstagePassesItem extends GildedRoseItem {
 
     public BackstagePassesItem(Item item) {
