@@ -14,63 +14,54 @@ class GildedRose {
     }
 
     public void updateQuality() {
+
         for (int i = 0; i < items.length; i++) {
 
             Item item = items[i];
 
-            // 전설 아이템은 아무것도 변하지 않는다.
-            if (item.name.equals(SULFURAS)) {
-                continue;
-            }
+            updateQuality(item);
 
-            if (item.name.equals(AGED_BRIE)) {
-                UpdateQualityForAgedBrie(item);
-            } else if (item.name.equals(BACKSTAGE_PASSES)) {
-                UpdateQualityForBackstagePasses(item);
-            } else {
-                UpdateQualityForNormalItem(item);
-            }
-
-            item.sellIn--;
+            updateSellIn(item);
         }
     }
 
-    private static void UpdateQualityForNormalItem(Item item) {
-        int decrease = 1;
+    private void updateQuality(Item item) {
 
-        if (item.sellIn <= 0) {
-            decrease = 2;
-        }
+        GildedRoseItem gildedRoseItem = getGildedRoseItem(item);
 
-        item.quality = Math.max(0, item.quality - decrease);
+        gildedRoseItem.updateQuality(item);
     }
 
-    private static void UpdateQualityForBackstagePasses(Item item) {
-        if (item.sellIn <= 0) {
-            item.quality = 0;
+    private GildedRoseItem getGildedRoseItem(Item item) {
+
+        GildedRoseItem gildedRoseItem;
+
+        if (item.name.equals(AGED_BRIE)) {
+
+            gildedRoseItem = new AgedBrieItem(item);
+
+        } else if (item.name.equals(BACKSTAGE_PASSES)) {
+
+            gildedRoseItem = new BackstagePassesItem(item);
+
+        } else if (item.name.equals(SULFURAS)) {
+
+            gildedRoseItem = new SulfurasItem(item);
 
         } else {
-            int increase = 1;
 
-            if (item.sellIn <= 10) {
-                increase = 2;
-            }
-
-            if (item.sellIn <= 5) {
-                increase = 3;
-            }
-
-            item.quality = Math.min(50, item.quality + increase);
+            gildedRoseItem = new NormalItem(item);
         }
+
+        return gildedRoseItem;
     }
 
-    private static void UpdateQualityForAgedBrie(Item item) {
-        int increase = 1;
+    private void updateSellIn(Item item) {
 
-        if (item.sellIn <= 0) {
-            increase = 2;
+        if (item.name.equals(SULFURAS)) {
+            return;
         }
 
-        item.quality = Math.min(50, item.quality + increase);
+        item.sellIn--;
     }
 }
